@@ -1,0 +1,30 @@
+# Jupyter Notebook
+*.ipynb
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+.Python
+
+# Environment
+.env
+*.env
+.venv
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+*.swp
+*~
+
+# Data files (optional)
+data/
+*.csv
+*.pkl
