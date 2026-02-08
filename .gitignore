@@ -71,3 +71,10 @@ backup/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# Exclude RAG folders
+Automerging_RAG/
+rag_and_pinecone/
+semantic_search/
+Qdrant/
+Sentence_window_retrieval/
