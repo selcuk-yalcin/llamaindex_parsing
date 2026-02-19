@@ -47,7 +47,7 @@ class LegalDocumentDatabase:
         # Index'leri oluştur
         self._create_indexes()
         
-        print(f"✅ MongoDB bağlantısı başarılı: {database_name}")
+        print(f" MongoDB bağlantısı başarılı: {database_name}")
     
     def _create_indexes(self):
         """Gerekli index'leri oluştur"""
@@ -64,7 +64,7 @@ class LegalDocumentDatabase:
         self.articles_collection.create_index([("law_number", ASCENDING)])
         self.articles_collection.create_index([("level", ASCENDING)])
         
-        print("✅ Index'ler oluşturuldu")
+        print(" Index'ler oluşturuldu")
     
     def insert_legal_document(self, legal_doc: LegalDocument) -> str:
         """
@@ -89,11 +89,11 @@ class LegalDocumentDatabase:
             # Maddeleri ayrı collection'a kaydet (hızlı arama için)
             self._insert_articles(legal_doc, str(result.inserted_id))
             
-            print(f"✅ Kanun kaydedildi: {law_number}")
+            print(f" Kanun kaydedildi: {law_number}")
             return str(result.inserted_id)
         
         except DuplicateKeyError:
-            print(f"⚠️  Kanun zaten var: {law_number} - Güncelleniyor...")
+            print(f"  Kanun zaten var: {law_number} - Güncelleniyor...")
             return self.update_legal_document(legal_doc)
     
     def _insert_articles(self, legal_doc: LegalDocument, parent_id: str):
@@ -131,7 +131,7 @@ class LegalDocumentDatabase:
         
         if articles:
             self.articles_collection.insert_many(articles)
-            print(f"✅ {len(articles)} madde kaydedildi")
+            print(f" {len(articles)} madde kaydedildi")
     
     def update_legal_document(self, legal_doc: LegalDocument) -> str:
         """Var olan dökümanı güncelle"""
@@ -151,7 +151,7 @@ class LegalDocumentDatabase:
             self.articles_collection.delete_many({"parent_id": str(existing_doc["_id"])})
             self._insert_articles(legal_doc, str(existing_doc["_id"]))
         
-        print(f"✅ Kanun güncellendi: {law_number}")
+        print(f" Kanun güncellendi: {law_number}")
         return str(existing_doc["_id"]) if existing_doc else None
     
     def find_law_by_number(self, law_number: str) -> Optional[Dict]:
@@ -229,7 +229,7 @@ class LegalDocumentDatabase:
         json_path = Path(json_dir)
         json_files = list(json_path.glob("*.json"))
         
-        print(f"📁 {len(json_files)} JSON dosyası bulundu")
+        print(f" {len(json_files)} JSON dosyası bulundu")
         
         success_count = 0
         failed_count = 0
@@ -248,11 +248,11 @@ class LegalDocumentDatabase:
                 success_count += 1
             
             except Exception as e:
-                print(f"❌ Hata ({json_file.name}): {str(e)}")
+                print(f" Hata ({json_file.name}): {str(e)}")
                 failed_count += 1
         
-        print(f"\n✅ Başarılı: {success_count}")
-        print(f"❌ Başarısız: {failed_count}")
+        print(f"\n Başarılı: {success_count}")
+        print(f" Başarısız: {failed_count}")
     
     def get_statistics(self) -> Dict:
         """Veritabanı istatistikleri"""
@@ -273,7 +273,7 @@ class LegalDocumentDatabase:
     def close(self):
         """MongoDB bağlantısını kapat"""
         self.client.close()
-        print("✅ MongoDB bağlantısı kapatıldı")
+        print(" MongoDB bağlantısı kapatıldı")
 
 
 # Kullanım örneği
@@ -290,7 +290,7 @@ if __name__ == "__main__":
     
     # Örnek 3: İstatistikler
     stats = db.get_statistics()
-    print(f"\n📊 İstatistikler:")
+    print(f"\n İstatistikler:")
     print(f"   Toplam kanun: {stats['total_laws']}")
     print(f"   Toplam madde: {stats['total_articles']}")
     print(f"   Cezalı kanun: {stats['laws_with_penalties']}")
