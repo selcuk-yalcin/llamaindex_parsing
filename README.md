@@ -4,13 +4,13 @@ Türk hukuk dökümanlarını (PDF) parse edip yapılandırılmış JSON format�
 
 ## Özellikler
 
-✅ **Batch Processing**: Birden fazla dökümanı otomatik işleme  
-✅ **Hiyerarşik Yapı**: PART > CHAPTER > ARTICLE > PARAGRAPH > SUB_CLAUSE  
-✅ **Pydantic Validasyon**: %100 şema uyumluluğu garantisi  
-✅ **LlamaParse Entegrasyonu**: Tablo ve numaralandırma koruması  
-✅ **Multi-LLM Desteği**: OpenAI (GPT-4o) ve Gemini 1.5 Pro  
-✅ **Detaylı Loglama**: Her adımda izlenebilirlik  
-✅ **Error Handling**: Hata yönetimi ve raporlama  
+**Batch Processing**: Birden fazla dökümanı otomatik işleme  
+ **Hiyerarşik Yapı**: PART > CHAPTER > ARTICLE > PARAGRAPH > SUB_CLAUSE  
+ **Pydantic Validasyon**: %100 şema uyumluluğu garantisi  
+ **LlamaParse Entegrasyonu**: Tablo ve numaralandırma koruması  
+ **Multi-LLM Desteği**: OpenAI (GPT-4o) ve Gemini 1.5 Pro  
+ **Detaylı Loglama**: Her adımda izlenebilirlik  
+ **Error Handling**: Hata yönetimi ve raporlama  
 
 ## Kurulum
 
