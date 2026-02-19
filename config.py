@@ -87,10 +87,10 @@ if __name__ == "__main__":
     try:
         Config.validate()
         Config.create_directories()
-        print("✅ Configuration valid!")
-        print(f"📁 Directories created")
-        print(f"🤖 Model: {Config.DEFAULT_MODEL}")
-        print(f"📄 LlamaParse mode: {'Premium' if Config.LLAMAPARSE_PREMIUM_MODE else 'Standard'}")
+        print(" Configuration valid!")
+        print(f" Directories created")
+        print(f" Model: {Config.DEFAULT_MODEL}")
+        print(f" LlamaParse mode: {'Premium' if Config.LLAMAPARSE_PREMIUM_MODE else 'Standard'}")
     except ValueError as e:
-        print(f"❌ {e}")
+        print(f" {e}")
 
