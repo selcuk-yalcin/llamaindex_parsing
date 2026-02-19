@@ -36,26 +36,26 @@ class StructuredExtractor:
         
     async def parse_pdf(self, pdf_path: str) -> str:
         """PDF'i markdown'a çevir"""
-        print(f"📄 Parsing: {pdf_path}")
+        print(f" Parsing: {pdf_path}")
         documents = await self.parser.aload_data(pdf_path)
         
         # Tüm sayfa içeriklerini birleştir
         full_text = "\n\n".join([doc.text for doc in documents])
-        print(f"✅ Parsed {len(documents)} pages")
+        print(f" Parsed {len(documents)} pages")
         return full_text
     
     async def extract_structured_json(self, markdown_text: str, filename: str) -> dict:
         """Markdown metni yapılandırılmış JSON'a çevir"""
-        print("🤖 LLM ile yapılandırma başlatılıyor...")
+        print(" LLM ile yapılandırma başlatılıyor...")
         
         # Metin uzunluğunu kontrol et
         text_length = len(markdown_text)
-        print(f"📝 Metin uzunluğu: {text_length:,} karakter")
+        print(f" Metin uzunluğu: {text_length:,} karakter")
         
         # Çok uzunsa kısalt (context window limiti için)
         max_text_length = 200000  # ~200k karakter
         if text_length > max_text_length:
-            print(f"⚠️ Metin çok uzun, ilk {max_text_length:,} karakter kullanılıyor")
+            print(f" Metin çok uzun, ilk {max_text_length:,} karakter kullanılıyor")
             markdown_text = markdown_text[:max_text_length]
         
         # JSON şemasını al
@@ -116,11 +116,11 @@ Yukarıdaki metni JSON olarak yapılandır."""
             # JSON parse et - hata yönetimi ile
             try:
                 structured_data = json.loads(content)
-                print("✅ Yapılandırma tamamlandı")
+                print(" Yapılandırma tamamlandı")
             except json.JSONDecodeError as e:
-                print(f"⚠️ JSON parse hatası: {e}")
-                print(f"🔍 Yanıtın ilk 500 karakteri:\n{content[:500]}")
-                print(f"🔍 Yanıtın son 500 karakteri:\n{content[-500:]}")
+                print(f" JSON parse hatası: {e}")
+                print(f" Yanıtın ilk 500 karakteri:\n{content[:500]}")
+                print(f" Yanıtın son 500 karakteri:\n{content[-500:]}")
                 
                 # Fallback: Eksik JSON'u tamamlamaya çalış
                 print("🔧 JSON düzeltme deneniyor...")
@@ -130,9 +130,9 @@ Yukarıdaki metni JSON olarak yapılandır."""
                 content = re.sub(r',(\s*[}\]])', r'\1', content)
                 try:
                     structured_data = json.loads(content)
-                    print("✅ Düzeltme başarılı!")
+                    print(" Düzeltme başarılı!")
                 except:
-                    print("❌ JSON düzeltilemedi, ham veri kaydediliyor")
+                    print("JSON düzeltilemedi, ham veri kaydediliyor")
                     raise
             
             return structured_data
@@ -151,8 +151,8 @@ Yukarıdaki metni JSON olarak yapılandır."""
                 pdf_file.stem
             )
         except Exception as e:
-            print(f"❌ LLM yapılandırma hatası: {e}")
-            print("💡 Raw markdown kaydediliyor...")
+            print(f" LLM yapılandırma hatası: {e}")
+            print(" Raw markdown kaydediliyor...")
             
             # Raw markdown'ı kaydet
             output_path = Path(output_dir)
@@ -160,16 +160,16 @@ Yukarıdaki metni JSON olarak yapılandır."""
             markdown_file = output_path / f"{pdf_file.stem}_raw.md"
             with open(markdown_file, 'w', encoding='utf-8') as f:
                 f.write(markdown_text)
-            print(f"💾 Raw markdown: {markdown_file}")
+            print(f" Raw markdown: {markdown_file}")
             raise
         
         # 3. Pydantic ile validate et
         try:
             validated = LegalDocument(**structured_data)
             final_json = validated.model_dump()
-            print("✅ Validation başarılı")
+            print(" Validation başarılı")
         except Exception as e:
-            print(f"⚠️ Validation hatası: {e}")
+            print(f" Validation hatası: {e}")
             print("🔧 Raw JSON kullanılıyor...")
             final_json = structured_data
         
@@ -181,7 +181,7 @@ Yukarıdaki metni JSON olarak yapılandır."""
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
-        print(f"💾 JSON kaydedildi: {output_file}")
+        print(f" JSON kaydedildi: {output_file}")
         
         return str(output_file)
     
@@ -191,17 +191,17 @@ Yukarıdaki metni JSON olarak yapılandır."""
         pdf_files = list(input_path.glob("*.pdf"))
         
         if not pdf_files:
-            print(f"❌ {input_dir} içinde PDF bulunamadı")
+            print(f" {input_dir} içinde PDF bulunamadı")
             return
         
-        print(f"📁 {len(pdf_files)} PDF bulundu")
+        print(f" {len(pdf_files)} PDF bulundu")
         
         for pdf_file in pdf_files:
             try:
                 await self.process_file(str(pdf_file), output_dir)
                 print("-" * 80)
             except Exception as e:
-                print(f"❌ Hata ({pdf_file.name}): {e}")
+                print(f" Hata ({pdf_file.name}): {e}")
                 continue
 
 
@@ -215,8 +215,8 @@ async def main():
     if data_dir.exists():
         await extractor.process_directory(str(data_dir))
     else:
-        print(f"❌ {data_dir} klasörü bulunamadı")
-        print("💡 Kullanım: data/ klasörüne PDF dosyalarınızı ekleyin")
+        print(f" {data_dir} klasörü bulunamadı")
+        print(" Kullanım: data/ klasörüne PDF dosyalarınızı ekleyin")
 
 
 if __name__ == "__main__":
