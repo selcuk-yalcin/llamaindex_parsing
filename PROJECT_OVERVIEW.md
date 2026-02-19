@@ -1,10 +1,10 @@
 # PROJECT OVERVIEW - Legal Document Extraction System
 
-## 🎯 Proje Amacı
+## Proje Amacı
 
 Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılmış JSON formatına çeviren, batch processing destekli, production-ready bir sistem.
 
-## 🏗️ Mimari
+##  Mimari
 
 ```
 ┌─────────────────┐
@@ -30,7 +30,7 @@ Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılm�
 └─────────────────┘
 ```
 
-## 📦 Bileşenler
+##  Bileşenler
 
 ### 1. **pydantic_models.py** (Veri Modelleri)
 - `LegalDocument`: Ana model
@@ -69,7 +69,7 @@ Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılm�
 - JSON validasyon
 - Örnek veri oluşturma
 
-## 🔧 Teknolojiler
+##  Teknolojiler
 
 | Kategori | Teknoloji | Amaç |
 |----------|-----------|------|
@@ -80,7 +80,7 @@ Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılm�
 | **CLI** | argparse | Komut satırı |
 | **Logging** | Python logging | İzlenebilirlik |
 
-## 📊 Veri Akışı
+##  Veri Akışı
 
 1. **Input**: PDF dosyası
 2. **Parse**: LlamaParse → Markdown (tablo korumalı)
@@ -89,7 +89,7 @@ Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılm�
 5. **Save**: JSON dosyası + MongoDB
 6. **Query**: Full-text search + cross-reference
 
-## 🎨 JSON Şeması
+##  JSON Şeması
 
 ```json
 {
@@ -113,7 +113,7 @@ Türk hukuk dökümanlarını (PDF) otomatik olarak parse edip yapılandırılm�
 }
 ```
 
-## 🚀 Kullanım
+##  Kullanım
 
 ### Hızlı Başlangıç
 ```bash
@@ -141,20 +141,20 @@ extractor = LegalDocumentExtractor(
 result = extractor.process_single_document("kanun.pdf")
 ```
 
-## 📈 Performans
+##  Performans
 
 - **Parse**: ~30-60 saniye/döküman
 - **Extraction**: ~20-40 saniye/döküman
 - **Toplam**: ~1-2 dakika/döküman
 - **Maliyet**: ~$0.30-0.50/döküman (GPT-4o)
 
-## 🔐 Güvenlik
+##  Güvenlik
 
 - API key'ler `.env` dosyasında
 - `.gitignore` ile korumalı
 - MongoDB authentication destekli
 
-## 📁 Klasör Yapısı
+##  Klasör Yapısı
 
 ```
 llamaindex-parsing/
@@ -175,22 +175,22 @@ llamaindex-parsing/
 └── extraction.log             # Logs
 ```
 
-## 🎯 Özellikler
+##  Özellikler
 
-✅ Batch processing  
-✅ Hiyerarşik yapı koruması  
-✅ Pydantic validasyon  
-✅ Multi-LLM desteği (OpenAI, Gemini)  
-✅ MongoDB entegrasyonu  
-✅ Full-text search  
-✅ Cross-reference analizi  
-✅ Error handling & retry  
-✅ Detaylı logging  
-✅ CLI & Python API  
-✅ Progress bar  
-✅ Chunk processing (uzun dökümanlar)  
+Batch processing  
+ Hiyerarşik yapı koruması  
+ Pydantic validasyon  
+ Multi-LLM desteği (OpenAI, Gemini)  
+ MongoDB entegrasyonu  
+ Full-text search  
+ Cross-reference analizi  
+ Error handling & retry  
+ Detaylı logging  
+ CLI & Python API  
+ Progress bar  
+ Chunk processing (uzun dökümanlar)  
 
-## 🔮 Gelecek Planları
+##  Gelecek Planları
 
 - [ ] Vector search entegrasyonu
 - [ ] RAG pipeline entegrasyonu
@@ -201,27 +201,11 @@ llamaindex-parsing/
 - [ ] Caching mekanizması
 - [ ] Test coverage %100
 
-## 📚 Dokümantasyon
+##  Dokümantasyon
 
 - **README.md**: Detaylı kullanım kılavuzu
 - **QUICKSTART.md**: 5 dakikada başla
 - **PROJECT_OVERVIEW.md**: Bu dosya
 - **examples.py**: 8 kullanım senaryosu
 
-## 🤝 Katkıda Bulunma
 
-1. Fork yapın
-2. Feature branch oluşturun
-3. Commit yapın
-4. Push edin
-5. Pull request açın
-
-## 📄 Lisans
-
-MIT License
-
----
-
-**Versiyon**: 1.0.0  
-**Son Güncelleme**: 6 Şubat 2026  
-**Durum**: Production Ready ✅
