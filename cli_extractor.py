@@ -131,7 +131,7 @@ Examples:
     
     # Create extractor
     print("=" * 60)
-    print("🔧 Starting Legal Document Extractor...")
+    print("Starting Legal Document Extractor...")
     print(f"   LLM: {args.llm} / {args.model}")
     print(f"   Output: {args.output}")
     print("=" * 60)
@@ -150,56 +150,56 @@ Examples:
     try:
         if args.file:
             # Single file
-            print(f"\n📄 Processing single file: {args.file}")
+            print(f"\n Processing single file: {args.file}")
             result = extractor.process_single_document(args.file)
             
             if result['status'] == 'success':
-                print(f"\n✅ Success!")
+                print(f"\n Success!")
                 print(f"   JSON: {result['json_path']}")
                 print(f"   Markdown: {result['markdown_path']}")
                 print(f"   Time: {result['processing_time']:.2f} seconds")
             else:
-                print(f"\n❌ Error: {result['error']}")
+                print(f"\n Error: {result['error']}")
                 sys.exit(1)
         
         elif args.batch:
             # Batch processing
-            print(f"\n📦 Starting batch processing: {len(args.batch)} files")
+            print(f"\n Starting batch processing: {len(args.batch)} files")
             results = extractor.process_batch(args.batch)
             
             success_count = sum(1 for r in results if r['status'] == 'success')
-            print(f"\n✅ Successful: {success_count}/{len(results)}")
+            print(f"\n Successful: {success_count}/{len(results)}")
             
             if success_count < len(results):
-                print("\n❌ Failed files:")
+                print("\n Failed files:")
                 for r in results:
                     if r['status'] == 'failed':
                         print(f"   - {r['file']}: {r['error']}")
         
         elif args.directory:
             # Process directory
-            print(f"\n📁 Processing directory: {args.directory}")
+            print(f"\n Processing directory: {args.directory}")
             print(f"   Pattern: {args.pattern}")
             results = extractor.process_directory(args.directory, args.pattern)
             
             if not results:
-                print(f"\n⚠️  No files found!")
+                print(f"\n  No files found!")
                 sys.exit(1)
             
             success_count = sum(1 for r in results if r['status'] == 'success')
-            print(f"\n✅ Successful: {success_count}/{len(results)}")
+            print(f"\n Successful: {success_count}/{len(results)}")
     
     except KeyboardInterrupt:
-        print("\n\n⚠️  Operation cancelled by user")
+        print("\n\n Operation cancelled by user")
         sys.exit(0)
     except Exception as e:
-        print(f"\n❌ Unexpected error: {str(e)}")
+        print(f"\n Unexpected error: {str(e)}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
     
     print("\n" + "=" * 60)
-    print("✨ Processing completed!")
+    print(" Processing completed!")
     print("=" * 60)
 
 
