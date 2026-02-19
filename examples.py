@@ -30,11 +30,11 @@ def example_single_document():
     result = extractor.process_single_document("./data/6331_sayili_kanun.pdf")
     
     if result['status'] == 'success':
-        print(f"✅ Başarılı!")
+        print(f" Başarılı!")
         print(f"   JSON: {result['json_path']}")
         print(f"   Süre: {result['processing_time']:.2f} saniye")
     else:
-        print(f"❌ Hata: {result['error']}")
+        print(f" Hata: {result['error']}")
 
 
 # ============================================================================
@@ -69,10 +69,10 @@ def example_batch_processing():
     success = [r for r in results if r['status'] == 'success']
     failed = [r for r in results if r['status'] == 'failed']
     
-    print(f"\n✅ Başarılı: {len(success)}/{len(files)}")
+    print(f"\n Başarılı: {len(success)}/{len(files)}")
     
     if failed:
-        print("\n❌ Başarısız dosyalar:")
+        print("\n Başarısız dosyalar:")
         for r in failed:
             print(f"   - {r['file']}: {r['error']}")
 
@@ -102,7 +102,7 @@ def example_directory_processing():
         pattern="*.pdf"
     )
     
-    print(f"\n✅ Toplam {len(results)} dosya işlendi")
+    print(f"\n Toplam {len(results)} dosya işlendi")
 
 
 # ============================================================================
@@ -151,7 +151,7 @@ def example_mongodb_integration():
     
     # Arama yap
     results = db.search_articles("iş güvenliği", limit=5)
-    print(f"\n🔍 '{len(results)}' arama sonucu bulundu")
+    print(f"\n '{len(results)}' arama sonucu bulundu")
     
     for i, result in enumerate(results, 1):
         print(f"\n{i}. {result['law_number']} - {result['index']}: {result.get('title', 'Başlık yok')}")
@@ -159,7 +159,7 @@ def example_mongodb_integration():
     
     # İstatistikler
     stats = db.get_statistics()
-    print(f"\n📊 Veritabanı İstatistikleri:")
+    print(f"\n Veritabanı İstatistikleri:")
     print(f"   Toplam kanun: {stats['total_laws']}")
     print(f"   Toplam madde: {stats['total_articles']}")
     
@@ -186,7 +186,7 @@ def example_cross_reference_analysis():
     
     cross_refs = db.get_cross_referenced_articles(law_number, article_index)
     
-    print(f"\n📎 {law_number} {article_index} Atıf Analizi:")
+    print(f"\n {law_number} {article_index} Atıf Analizi:")
     
     print(f"\n   Bu maddenin atıf yaptığı maddeler ({len(cross_refs['referenced_by_this'])}):")
     for ref in cross_refs['referenced_by_this'][:5]:
@@ -216,10 +216,10 @@ def example_penalty_analysis():
     # Ceza içeren kanunları getir
     laws_with_penalties = db.get_articles_with_penalties()
     
-    print(f"\n⚖️  Ceza içeren kanun sayısı: {len(laws_with_penalties)}")
+    print(f"\n  Ceza içeren kanun sayısı: {len(laws_with_penalties)}")
     
     for law in laws_with_penalties[:3]:
-        print(f"\n📜 {law['law_metadata']['law_number']} - {law['law_metadata']['law_title']}")
+        print(f"\n {law['law_metadata']['law_number']} - {law['law_metadata']['law_title']}")
         print(f"   Ceza sayısı: {len(law['penalties'])}")
         
         for penalty in law['penalties'][:2]:
@@ -249,8 +249,8 @@ def example_json_validation():
         # Pydantic ile validate et
         legal_doc = LegalDocument(**data)
         
-        print("✅ JSON şemaya uygun!")
-        print(f"\n📊 Döküman İstatistikleri:")
+        print(" JSON şemaya uygun!")
+        print(f"\n Döküman İstatistikleri:")
         print(f"   Kanun: {legal_doc.law_metadata.law_number} - {legal_doc.law_metadata.law_title}")
         print(f"   Bölüm sayısı: {len(legal_doc.sections)}")
         print(f"   Madde sayısı: {len(legal_doc.content_structure)}")
@@ -258,7 +258,7 @@ def example_json_validation():
         print(f"   Ceza sayısı: {len(legal_doc.penalties)}")
         
     except Exception as e:
-        print(f"❌ Validasyon hatası: {str(e)}")
+        print(f" Validasyon hatası: {str(e)}")
 
 
 # ============================================================================
@@ -298,16 +298,16 @@ if __name__ == "__main__":
             try:
                 func()
             except Exception as e:
-                print(f"\n❌ Hata ({name}): {str(e)}")
+                print(f"\n Hata ({name}): {str(e)}")
     elif choice in scenarios:
         _, func = scenarios[choice]
         try:
             func()
         except Exception as e:
-            print(f"\n❌ Hata: {str(e)}")
+            print(f"\n Hata: {str(e)}")
             import traceback
             traceback.print_exc()
     else:
-        print("❌ Geçersiz seçim!")
+        print(" Geçersiz seçim!")
     
-    print("\n✨ İşlem tamamlandı!")
+    print("\n İşlem tamamlandı!")
